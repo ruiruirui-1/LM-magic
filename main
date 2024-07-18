@@ -1,0 +1,90 @@
+package work;
+import java.util.*;
+public class LM {
+	
+
+	public static void main(String[] args) {
+		ArrayList<String> s = new ArrayList<>(16);
+		
+	}
+	private static void cards(ArrayList<String> s, String name, String where, String gender) {
+		int usedlength = s.size()*2;
+		ArrayList<String> fission = new ArrayList<>(usedlength);
+		fission.addAll(s);
+		fission.addAll(s);
+		//[a, b, c, d, a, b, c, d]
+		for (int i = 0; i < name.length(); i++) {
+			fission.add(fission.remove((0)));
+		}
+		//System.out.println(fission);
+		//b,c,d,a,b,c,d,a
+		//a, b, c, d, a
+		int t = 3;
+		String removed = "";
+		while(t-- > 0) {
+			removed =removed + fission.remove(0) ;
+		}//removed = b,c,d
+		ArrayList<String> adding = new ArrayList<>();
+		for (int i = 0; i < removed.length(); i++) {
+			adding.add(removed.substring(i, i+1));
+		}
+		//add in a, b, c, d, a;  add   b, c d
+		
+		//随机将“b, c, d”插入剩余的牌的中间
+		int place =  (int) (3*Math.random() + 1);
+		
+		 //fission = a,b,c,b,c,d,d,a
+		 
+		fission.addAll(place, adding);
+		
+		String check = fission.get(0);//留下来的牌
+		
+		//System.out.println(fission)=a,b,c,b,c,d,d,a
+		fission.remove(0);
+		
+		//System.out.println(fission) = b,c,b,c,d,d,a
+		
+		int place2 = (int)(5*Math.random() + 1);
+		if (where.equals("south")) {
+			String forsouth = fission.remove(0);
+			fission.add(place2, forsouth);
+		} else if(where.equals("north")) {
+			ArrayList<String> Listfornorth = new ArrayList<>();
+			Listfornorth.add(fission.remove(0));
+			Listfornorth.add(fission.remove(0));
+			fission.addAll(place2, Listfornorth);
+			System.out.println(fission);
+		} else {
+			String uncertain = fission.remove(0) + fission.remove(0) + fission.remove(0);
+			ArrayList<String> Listuncertain = new ArrayList<>();
+			for (int i = 0; i < uncertain.length(); i++) {
+				Listuncertain.add(uncertain.substring(i, i+1));
+			}
+			fission.addAll(place2, Listuncertain);
+		}
+		
+		
+		 if (gender.equals("b")){
+		 
+			fission.remove(0);
+		} else if(gender.equals("g")) {
+			fission.remove(0);
+			fission.remove(0);
+		}
+		//System.out.println(fission);
+		   for (int i = 1; i <= 7; i++) {
+			   fission.add(fission.remove(0));
+		   }
+		   //System.out.println(fission);
+		   
+		   //只剩下来一个牌
+		   while(fission.size() > 1) {
+			   fission.add(fission.remove(0));
+			   
+			   fission.remove(0);
+		   }
+		   System.out.println(check);
+		   System.out.println(fission.get(0));
+	}
+
+}
